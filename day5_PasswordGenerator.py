@@ -59,3 +59,4 @@ for k in range(nr_numbers):
 random.shuffle(password2_1)
 password2_1 = "".join(password2_1)
 print(f"password2_1: {password2_1}")
+
