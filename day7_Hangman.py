@@ -1,76 +1,14 @@
 import random
-#Step 4
+from utils import hangman_arts as ha, hangman_words as hw
 
-import random
-
-stages = ['''
-  +---+
-  |   |
-  O   |
- /|\  |
- / \  |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
- /|\  |
- /    |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
- /|\  |
-      |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
- /|   |
-      |
-      |
-=========''', '''
-  +---+
-  |   |
-  O   |
-  |   |
-      |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
-      |
-      |
-      |
-=========
-''', '''
-  +---+
-  |   |
-      |
-      |
-      |
-      |
-=========
-''']
-
-correct = 0
 word_list = ["aardvark", "baboon", "camel"]
 
 #Randomly choose a word from the word_list and assign it to a variable called chosen_word.
-chosen_word = random.choice(word_list)
+chosen_word = random.choice(hw.word_list)
 
-#For each letter in the chosen_word, add a "_" to 'display'.
-#So if the chosen_word was "apple", display should be ["_", "_", "_", "_", "_"] with 5 "_" representing each letter to guess.
-
-#Create blanks
+print(ha.logo)
 display = []
+lives = 6
 word_length = len(chosen_word)
 for i in range(word_length):
     display.append("_")
@@ -78,19 +16,19 @@ for i in range(word_length):
 #Ask the user to guess a letter and assign their answer to a variable called guess. Make guess lowercase.
 end_of_game = False
 while not end_of_game:
-    correct = 0
     guess = input("Guess a letter: ").lower()
-    if guess in chosen_word:
-        print("Right")
-    else:
-        print("Wrong")
-
-# Check if the letter the user guessed (guess) is one of the letters in the chosen_word.
+    # Check if the letter the user guessed (guess) is one of the letters in the chosen_word.
     for position in range(word_length):
         letter = chosen_word[position]
         if guess == letter:
             display[position] = letter
-            correct += 1
+          
+    if guess not in chosen_word:
+        lives -= 1
+        if lives == 0:
+            end_of_game = True
+            print("You lose...")
+    print(ha.stages[lives])
     print(f"{' '.join(display)}")
 
     if "_" not in display:
